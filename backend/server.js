@@ -31,6 +31,10 @@ app.post('/register', userController.register); // update this line
 // OU Endpoint
 app.post('/addOU', verifyToken, userController.addOU);
 
+app.post('/removeUserFromOU', verifyToken, userController.removeUserFromOU);
+
+app.get('/getOUs', verifyToken, userController.getOUs);
+
 // Division Endpoint
 app.post('/addDivision', verifyToken, userController.addDivision);
 
@@ -38,10 +42,27 @@ app.post('/assignUserToOU', verifyToken, userController.assignUserToOU);
 
 app.post('/assignUserToDivision', verifyToken, userController.assignUserToDivision);
 
+app.post('/removeUserFromDivision', verifyToken, userController.removeUserFromDivision);
+
+app.get('/getDivisions', verifyToken, userController.getDivisions);
+
 app.post('/assignDivisionToOU', verifyToken, userController.assignDivisionToOU);
 
 app.get('/getOU/:ouId', verifyToken, userController.getOU);
 
+app.get('/getCredentials/:divisionId', verifyToken, userController.getCredentialsForDivision);
+
+app.post('/addCredential/:divisionId', verifyToken, userController.addCredentialToDivision);
+
+app.patch('/updateCredential/:credentialId', verifyToken, userController.updateCredential);
+
+app.get('/getDivisions', verifyToken, userController.getDivisions);
+
+app.get('/getCredentials', verifyToken, userController.getCredentials);
+
+app.patch('/changeUserRole/:userId', verifyToken, userController.changeUserRole);
+
+app.get('/getUsers', verifyToken, userController.getUsers);
 
 // Middleware to verify token
 function verifyToken(req, res, next) {
@@ -61,4 +82,4 @@ function verifyToken(req, res, next) {
 // Current User Endpoint
 app.get('/me', verifyToken, userController.getCurrentUser); // update this line
 
-app.listen(3000, () => console.log('Server started on port 3000'));
+app.listen(8080, () => console.log('Server started on port 8080'));

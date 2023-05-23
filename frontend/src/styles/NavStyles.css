@@ -1,0 +1,117 @@
+* {
+    box-sizing: border-box;
+}
+
+nav {
+    display: flex;
+    width: 100%;
+    padding: 2rem 0rem;
+}
+
+nav>.nav-section {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+#nav-logo-section,
+#nav-link-section {
+    flex-basis: calc(100%/2);
+}
+
+#nav-link-section{
+    justify-content: right;
+}
+#nav-logo-section>img {
+    width: 85px;
+}
+
+.link {
+    color: black;
+    text-decoration: none;
+}
+
+.credentialRequestCardContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    backdrop-filter: blur(3px);
+}
+
+/* import React, { useState, useEffect } from 'react';
+
+const UserManagement = () => {
+  const [users, setUsers] = useState([]);
+  const [newRole, setNewRole] = useState("");
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch('/getUsers', {
+        headers: {
+          Authorization: sessionStorage.getItem('token'),
+        },
+      });
+      const data = await response.json();
+      setUsers(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleChangeRole = async (e) => {
+    e.preventDefault();
+
+    try {
+      await fetch(`/changeUserRole/${selectedUser}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: sessionStorage.getItem('token'),
+        },
+        body: JSON.stringify({ role: newRole }),
+      });
+      // Refresh the user list
+      fetchUsers();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <div>
+      <h1>User Management</h1>
+
+      <h2>Change User Role</h2>
+      <form onSubmit={handleChangeRole}>
+        <select onChange={(e) => setSelectedUser(e.target.value)}>
+          <option>Select a user...</option>
+          {users.map((user) => (
+            <option key={user._id} value={user._id}>
+              {user.username}
+            </option>
+          ))}
+        </select>
+
+        <select onChange={(e) => setNewRole(e.target.value)}>
+          <option>Select a new role...</option>
+          <option value="normal">Normal</option>
+          <option value="management">Management</option>
+          <option value="admin">Admin</option>
+        </select>
+
+        <button type="submit">Change Role</button>
+      </form>
+    </div>
+  );
+};
+
+export default UserManagement;
+ */
