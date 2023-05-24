@@ -1,0 +1,42 @@
+* {
+    box-sizing: border-box;
+}
+
+nav {
+    display: flex;
+    width: 100%;
+    padding: 2rem 0rem;
+}
+
+nav>.nav-section {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+#nav-logo-section,
+#nav-link-section {
+    flex-basis: calc(100%/2);
+}
+
+#nav-link-section{
+    justify-content: right;
+}
+#nav-logo-section>img {
+    width: 50px;
+}
+
+.link {
+    color: black;
+    text-decoration: none;
+}
+
+.credentialRequestCardContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    backdrop-filter: blur(3px);
+}

@@ -1,0 +1,29 @@
+body{
+    width: 100%;
+    padding: 0rem 5rem;
+    background-color: #DBDBDB;
+    color: #242324;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+
+.container{
+    /* display: flex;
+    flex-direction: column;
+    align-items: left; */
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #E8E8E8;
+    width: 100%;
+}
+
+.userHeaders{
+    text-align: center;
+}
+
+button{
+    padding: 0.3rem 0.5rem;
+    margin: 0.2rem 0;
+    border-radius: 0;
+}
