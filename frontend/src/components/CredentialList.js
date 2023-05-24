@@ -1,16 +1,25 @@
-import React from 'react';
+// Student Name: Evan Bezuidenhout
+// Student Number: EB22010002711
+// Level: 4
+// Task: 35
+// Compulsory Task: 2
+// File Name: CredentialList.js
+
+import React from 'react'
+import '../styles/GlobalStyle.css'
 
 class CredentialList extends React.Component {
   state = {
     credentials: [],
     divisions: [],
-    division: '', // Add division state
-  };
-
-  componentDidMount() {
-    this.fetchDivisions();
+    division: '', // Add division state to store selected division
   }
 
+  componentDidMount() {
+    this.fetchDivisions()
+  }
+
+  // Fetch divisions from the server
   fetchDivisions = () => {
     fetch(`/getDivisions`, {
       headers: {
@@ -19,33 +28,36 @@ class CredentialList extends React.Component {
     })
       .then((response) => response.json())
       .then((data) => {
-        this.setState({ divisions: data });
+        this.setState({ divisions: data })
       })
-      .catch((err) => console.log(err));
-  };
+      .catch((err) => console.log(err))
+  }
 
-  // Define handleChange function
+  // Handle division selection change
   handleChange = (event) => {
-    this.setState({ division: event.target.value }, this.fetchCredentials);
-  };
+    // Update the division state with the selected value
+    this.setState({ division: event.target.value }, this.fetchCredentials)
+  }
 
-  // Fetch credentials based on selected division
+  // Fetch credentials based on the selected division
   fetchCredentials = async () => {
     const response = await fetch(`/getCredentials/${this.state.division}`, {
       headers: {
         Authorization: sessionStorage.getItem('token'),
       },
-    });
+    })
 
-    const data = await response.json();
-    this.setState({ credentials: data });
-  };
+    const data = await response.json()
+    // Update the credentials state with the fetched data
+    this.setState({ credentials: data })
+  }
 
   render() {
-    const { credentials } = this.state;
-  
+    const { credentials } = this.state
+
     return (
-      <div>
+      <div className="container">
+        <h1>View Credentials:</h1>
         <label>
           Division:
           <br />
@@ -55,6 +67,7 @@ class CredentialList extends React.Component {
             onChange={this.handleChange}
           >
             <option value="">Select Division</option>
+            {/* Render the divisions as options in the select dropdown */}
             {this.state.divisions.map((division) => (
               <option key={division._id} value={division._id}>
                 {division.name}
@@ -62,22 +75,20 @@ class CredentialList extends React.Component {
             ))}
           </select>
         </label>
-        <h1>Credentials</h1>
+        <h2>Credentials:</h2>
+        {/* Render the list of credentials */}
         {credentials.length > 0 ? (
           <ul>
             {credentials.map((credential) => (
-              <li key={credential._id}>
-                {credential.credential}: {credential.username}
-              </li>
+              <li key={credential._id}>{credential.username}</li>
             ))}
           </ul>
         ) : (
           <p>No credentials found</p>
         )}
       </div>
-    );
+    )
   }
-  
 }
 
-export default CredentialList;
+export default CredentialList

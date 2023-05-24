@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import jwt_decode from 'jwt-decode'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 
 import Navbar from './components/Navbar'
@@ -11,19 +10,22 @@ import UserManagement from './components/UserManagement'
 
 export const AuthContext = React.createContext()
 
-const PrivateRoute = ({roleRequired, children}) => {
+const PrivateRoute = ({ roleRequired, children }) => {
   const navigate = useNavigate();
   const role = sessionStorage.getItem('role');
   const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true' ? true : false;
 
   useEffect(() => {
-    if (!isLoggedIn || role !== roleRequired) {
-      navigate('/')
+    const requiredRoles = roleRequired.split(',');
+
+    if (!isLoggedIn || !requiredRoles.includes(role)) {
+      navigate('/');
     }
-  }, [isLoggedIn, role, navigate, roleRequired])
+  }, [isLoggedIn, role, navigate, roleRequired]);
 
   return children;
-}
+};
+
 
 const App = () => {
   const [role, setRole] = useState(null)
@@ -49,9 +51,9 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} exact />
-          <Route path="/add-credentials" element={<PrivateRoute roleRequired="admin"><AddCredentials /></PrivateRoute>} /> 
-          <Route path="/credential-list" element={<PrivateRoute roleRequired="user"><ListCredentials /></PrivateRoute>} />
-          <Route path="/update-credential" element={<PrivateRoute roleRequired="admin"><UpdateCredential /></PrivateRoute>} />
+          <Route path="/add-credentials" element={<PrivateRoute roleRequired="normal,management,admin"><AddCredentials /></PrivateRoute>} /> 
+          <Route path="/credential-list" element={<PrivateRoute roleRequired="normal,management,admin"><ListCredentials /></PrivateRoute>} />
+          <Route path="/update-credential" element={<PrivateRoute roleRequired="management,admin"><UpdateCredential /></PrivateRoute>} />
           <Route path="/user-management" element={<PrivateRoute roleRequired="admin"><UserManagement /></PrivateRoute>} />
         </Routes>
       </Router>
